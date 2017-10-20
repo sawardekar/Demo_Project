@@ -1,0 +1,22 @@
+<html>
+<h1>Album List</h1>
+<a href="{% url "album_new" %}">New</a>
+{% if object_list}
+<ul>
+    {% for album in object_list %}
+    <li><a href="{% url "detail" album.id %}">{{ album.artist }}</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url "album_edit" album.id %}">
+    <button type="button" class="btn btn-default btn-lg">
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Edit
+    </button>
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url "album_delete" album.id %}">
+    <button type="button" class="btn btn-default btn-lg">
+  	<span class="glyphicon glyphicon-star" aria-hidden="true"></span> Delete
+	</button>
+	</a>
+    </li>
+    {% endfor %}
+</ul>
+</html>

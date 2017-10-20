@@ -1,0 +1,21 @@
+<html>
+<h1>Song List</h1>
+<a href="{% url "song_new" %}">New</a>
+<ul>
+    {% for song in object_list %}
+    <li>{{ song.song_title }} :  
+<!--     <a href="{% url "song_edit" song.id %}">{{ song.song_title }}</a>
+    <a href="{% url "song_delete" song.id %}">delete</a> -->
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url 'song_edit' song.id %}">
+    <button type="button" class="btn btn-default btn-lg">
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Edit </button>
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url 'song_delete' song.id %}">
+    <button type="button" class="btn btn-default btn-lg">
+  	<span class="glyphicon glyphicon-star" aria-hidden="true"></span> Delete </button>
+	</a>
+    </li>
+    {% endfor %}
+</ul>
+</html>
