@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse,Http404
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
@@ -19,6 +19,11 @@ def music_list(request, template_name='music/music_list.html'):
     data = {}
     data['all_music'] = album
     return render(request, template_name, data)
+    # template =loader.get_template('music/music_list.html')
+    # context={
+    #     'all_music':album,
+    # }
+    # return HttpResponse(template.render(context,request))
 
 
 class AlbumForm(ModelForm):
@@ -43,11 +48,15 @@ def album_create(request, template_name='music/album_form.html'):
 
 
 def album_update(request, pk, template_name='music/album_form.html'):
-    album = get_object_or_404(Album, pk=pk)
-    form = AlbumForm(request.POST or None, instance=album)
-    if form.is_valid():
-        form.save()
-        return redirect('album_list')
+    try:
+        album = Album.objects.get(pk=pk)
+        # album = get_object_or_404(Album, pk=pk)
+        form = AlbumForm(request.POST or None, instance=album)
+        if form.is_valid():
+            form.save()
+            return redirect('album_list')
+    except Album.DoesNotExist:
+        raise Http404("Album does not exist")
     return render(request, template_name, {'form': form})
 
 
@@ -59,7 +68,6 @@ def album_delete(request, pk, template_name='music/album_confirm_delete.html'):
         for song_id in song_ids:
             song_id.is_active = False
             song_id.save()
-            # server.delete()
         return redirect('album_list')
     return render(request, template_name, {'object': album})
 
@@ -86,8 +94,8 @@ def song_create(request, template_name='music/song_form.html'):
 
 
 def song_update(request, pk, template_name='music/song_form.html'):
-    server = get_object_or_404(Song, pk=pk)
-    form = SongForm(request.POST or None, instance=server)
+    song = get_object_or_404(Song, pk=pk)
+    form = SongForm(request.POST or None, instance=song)
     if form.is_valid():
         form.save()
         return redirect('song_list')
@@ -95,8 +103,8 @@ def song_update(request, pk, template_name='music/song_form.html'):
 
 
 def song_delete(request, pk, template_name='music/song_confirm_delete.html'):
-    server = get_object_or_404(Song, pk=pk)
+    song = get_object_or_404(Song, pk=pk)
     if request.method == 'POST':
-        server.delete()
+        song.delete()
         return redirect('song_list')
-    return render(request, template_name, {'object': server})
+    return render(request, template_name, {'object': song})

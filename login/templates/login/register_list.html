@@ -1,0 +1,24 @@
+<html>
+<h1>Song List</h1>
+<a href="{% url 'register_new' %}">New</a>
+{% if all_register %}
+    <ul>
+        {% for register in all_register %}
+            <li>{{ register.user_id }} :
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'register_edit' register.id %}">
+            <button type="button" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Edit </button>
+            </a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'register_delete' register.id %}">
+            <button type="button" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Delete </button>
+            </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3>You don't have any Song List </h3>
+{% endif %}
+</html>
