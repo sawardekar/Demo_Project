@@ -1,7 +1,8 @@
+<h1>New User:</h1>
 <form method="post">
 {% if messages %}
 	{% for message in messages %}
-	<div class ="alert {% if message.tags %}alert-{% if message.tags == 'error' %}danger{% else %}{{message.tags}}{% endif %}"{% endif %}>{{message}}</div>
+	<b><div class ="alert {% if message.tags %}alert-{% if message.tags == 'error' %}danger{% else %}{{message.tags}}{% endif %}"{% endif %}>{{message}}</div></b>
 	{% endfor %}
 {% endif %}	
 

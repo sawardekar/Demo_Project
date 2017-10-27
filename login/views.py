@@ -36,14 +36,17 @@ def user_login(request, template_name='login/login_form.html'):
 		user_id = request.POST['user_id']
 		password = request.POST['password']
 		register_ids = User.objects.filter(user_id=user_id)
-		for register_id in register_ids:
-			enc_password = register_id.password
-			password = str(password)
-			enc_password = str(enc_password)
-			# pbkdf2_sha256.using(rounds=1)
-			set_password = pbkdf2_sha256.verify(password,enc_password)
-			if enc_password :
-				return redirect('music_list')
+		if register_ids:
+			for register_id in register_ids:
+				enc_password = register_id.password
+				password = str(password)
+				enc_password = str(enc_password)
+				# pbkdf2_sha256.using(rounds=1)
+				set_password = pbkdf2_sha256.verify(password,enc_password)
+				if enc_password :
+					return redirect('music_list')
+		else:
+			messages.error(request,'Wrong password is Wrong')
 	return render(request, template_name, {'form': form})
 
 class RegisterForm(ModelForm):
@@ -83,7 +86,7 @@ def register_create(request, template_name='login/register_form.html'):
 			# form.save()
 			return redirect('register_list')
 		else:
-			messages.error(request,'Wrong password is set')
+			messages.error(request,'Password and Confirm Password is not match')
 	return render(request, template_name, {'form': form})
 
 

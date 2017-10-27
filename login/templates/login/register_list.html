@@ -1,5 +1,5 @@
 <html>
-<h1>Song List</h1>
+<h1>User List:</h1>
 <a href="{% url 'register_new' %}">New</a>
 {% if all_register %}
     <ul>
@@ -19,6 +19,6 @@
         {% endfor %}
     </ul>
 {% else %}
-    <h3>You don't have any Song List </h3>
+    <h3>You don't have any User List </h3>
 {% endif %}
 </html>
