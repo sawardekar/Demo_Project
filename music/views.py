@@ -13,7 +13,6 @@ from django.template import loader
 def detail(request, album_id):
     return HttpResponse("<h2>Detail for album_id :" + str(album_id) + "</h2>")
 
-
 def music_list(request, template_name='music/music_list.html'):
     album = Album.objects.all()
     data = {}
@@ -31,6 +30,12 @@ class AlbumForm(ModelForm):
         model = Album
         fields = ['id', 'artist', 'album_title', 'genre', 'album_log', 'repeat_song', 'date', 'city', 'comment']
 
+def album_detail(request, pk, template_name='music/album_view.html'):
+    album = get_object_or_404(Album, pk=pk)
+    form = AlbumForm(request.POST or None, instance=album)
+    if request.method == 'POST':
+        return redirect('album_list')
+    return render(request, template_name, {'form': form})
 
 def album_list(request, template_name='music/album_list.html'):
     album = Album.objects.all()
@@ -77,6 +82,12 @@ class SongForm(ModelForm):
         model = Song
         fields = ['album', 'is_active', 'file_type', 'size', 'song_title']
 
+def song_detail(request, pk, template_name='music/song_view.html'):
+    song = get_object_or_404(Song, pk=pk)
+    form = SongForm(request.POST or None, instance=song)
+    if request.method == 'POST':
+        return redirect('song_list')
+    return render(request, template_name, {'form': form})
 
 def song_list(request, template_name='music/song_list.html'):
     song = Song.objects.all()

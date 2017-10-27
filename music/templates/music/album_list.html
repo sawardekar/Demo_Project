@@ -1,10 +1,13 @@
 <html>
-<h1>Album List</h1>
-<a href="{% url 'album_new' %}">New</a>
+<img src ="http://www.doublesdesign.com/soosoo/images/portfolio-logo-album.jpg" width="100" height="100"/>
+<h1>Album List:</h1>
+<b><a href="{% url 'album_new' %}">New</a>
+<a href="{% url 'music_list' %}">Back</a>
+<a href="{% url 'user_login' %}" style="float: right;">Logout</a></b>
 {% if all_album %}
     <ul>
         {% for album in all_album %}
-            <li><a href="{% url 'detail' album.id %}">{{ album.artist }}</a>
+            <li><a href="{% url 'album_detail' album.id %}">{{ album.artist }}</a>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <a href="{% url 'album_edit' album.id %}">
             <button type="button" class="btn btn-default btn-lg">
@@ -23,4 +26,6 @@
 {% else %}
     <h3>You don't have any album list</h3>
 {% endif %}
+
+
 </html>

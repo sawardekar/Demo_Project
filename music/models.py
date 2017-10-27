@@ -26,7 +26,7 @@ class Album(models.Model):
     comment = models.TextField()
 
     def __unicode__(self):
-        return self.artist + '-' + self.album_title
+        return self.artist 
 
     def get_absolute_url(self):
         return reverse('album_edit', kwargs={'pk': self.pk})

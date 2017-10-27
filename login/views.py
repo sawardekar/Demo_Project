@@ -10,6 +10,16 @@ from django.forms import ModelForm
 from login.models import User
 from django.template import loader
 from django import forms
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.views.generic import (
+	FormView,RedirectView,CreateView,TemplateView)
+from django.contrib.auth import (
+	login as auth_login,logout as auth_logout,authenticate,
+	update_session_auth_hash)
+from passlib.hash import pbkdf2_sha256
+# from .forms import UserCreateForm,PasswordRecoveryForm
+
 
 class LoginForm(ModelForm):
 	class Meta:
@@ -27,8 +37,12 @@ def user_login(request, template_name='login/login_form.html'):
 		password = request.POST['password']
 		register_ids = User.objects.filter(user_id=user_id)
 		for register_id in register_ids:
-			set_password =register_id.password
-			if set_password == password :
+			enc_password = register_id.password
+			password = str(password)
+			enc_password = str(enc_password)
+			# pbkdf2_sha256.using(rounds=1)
+			set_password = pbkdf2_sha256.verify(password,enc_password)
+			if enc_password :
 				return redirect('music_list')
 	return render(request, template_name, {'form': form})
 
@@ -50,11 +64,27 @@ def register_list(request, template_name='login/register_list.html'):
 
 
 def register_create(request, template_name='login/register_form.html'):
-    form = RegisterForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('register_list')
-    return render(request, template_name, {'form': form})
+	form = RegisterForm(request.POST or None)
+	if request.method == 'POST':
+		user_id =request.POST['user_id']
+		password = request.POST['password']
+		confirm_password = request.POST['confirm_password']
+		email = request.POST['email']
+		is_active = request.POST['is_active']
+		if password == confirm_password:
+			enc_password = pbkdf2_sha256.encrypt('password',rounds=29000,salt_size=32)
+			User.objects.create(
+				user_id = user_id,
+				password = enc_password,
+				confirm_password = enc_password,
+				email = email,
+				is_active = is_active
+				)
+			# form.save()
+			return redirect('register_list')
+		else:
+			messages.error(request,'Wrong password is set')
+	return render(request, template_name, {'form': form})
 
 
 def register_update(request, pk, template_name='login/register_form.html'):

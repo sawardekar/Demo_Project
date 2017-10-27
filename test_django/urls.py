@@ -16,10 +16,14 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-
+from django.contrib.auth.views import login, logout, password_reset, password_reset_done,password_reset_confirm
 urlpatterns = [
     url(r'^$', include('login.urls')),
+    # url(r'^login/$',login,{'template_name':'login/login_form.html'}),
 	url(r'^login/', include('login.urls')),
 	url(r'^admin/', include(admin.site.urls)),
 	url(r'^music/', include('music.urls')),
+    url(r'^reset-password/$', password_reset, name='password_reset'),
+    url(r'^reset-password/done/$', password_reset_done, name='password_reset_done'),
+    url(r'^reset-password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>,+)/$', password_reset_confirm, name='password_reset_confirm')
 ]
