@@ -1,10 +1,14 @@
-<html>
+{% load staticfiles %}
+<link rel="stylesheet" href ="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="{% static 'images/style.css' %}"/>
 <img src ="http://www.doublesdesign.com/soosoo/images/portfolio-logo-album.jpg" width="100" height="100"/>
-<h1>Album Name :"{{ object }}"</h1>
+<h3>Album Name :"{{ object }}"</h3>
+<br>
 <form method="post">{% csrf_token %}
     Are you sure you want to delete "{{ object }}" ?
-    <input type="submit" value="Submit" />
+    <br>
+    <br>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
     or
-    <b><a href="{% url 'album_list' %}">Cancel</a></b>
+    <b><a href="{% url 'album_list' %}" class="btn btn-primary">Cancel</a></b>
 </form>
-<html>

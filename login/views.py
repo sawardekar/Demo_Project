@@ -18,6 +18,7 @@ from django.contrib.auth import (
 	login as auth_login,logout as auth_logout,authenticate,
 	update_session_auth_hash)
 from passlib.hash import pbkdf2_sha256
+from django.forms import ModelForm, TextInput, TextInput, EmailField
 # from .forms import UserCreateForm,PasswordRecoveryForm
 
 
@@ -55,6 +56,7 @@ class RegisterForm(ModelForm):
 		widgets = {
 		'password': forms.PasswordInput(),
 		'confirm_password': forms.PasswordInput(),
+		'email' : TextInput(attrs={'placeholder': 'Enter the Email ID *', 'class': 'form-control','required': False}),
 		}
 		fields = ['user_id', 'password','confirm_password','email','is_active']
 
@@ -86,13 +88,17 @@ def register_create(request, template_name='login/register_form.html'):
 			# form.save()
 			return redirect('register_list')
 		else:
-			messages.error(request,'Password and Confirm Password is not match')
+			# messages.error(request,'Password and Confirm Password is not match')
+			return render(request, template_name, {
+				'form': form,
+				'error_message':'Password and Confirm Password is not matchsss',
+				})
 	return render(request, template_name, {'form': form})
 
 
 def register_update(request, pk, template_name='login/register_form.html'):
     register = get_object_or_404(User, pk=pk)
-    form = RegisterForm(request.POST or None, instance=song)
+    form = RegisterForm(request.POST or None, instance=register)
     if form.is_valid():
         form.save()
         return redirect('register_list')

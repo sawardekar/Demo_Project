@@ -6,7 +6,7 @@ class User(models.Model):
 	user_id = models.CharField(max_length=50)
 	password = models.CharField(max_length=256)
 	confirm_password = models.CharField(max_length=256)
-	email = models.EmailField()
+	email = models.EmailField(max_length=100)
 	is_active = models.BooleanField('Active?', default=True)
 
 	def __unicode__(self):
@@ -14,3 +14,5 @@ class User(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('register_edit', kwargs={'pk': self.pk})
+
+	

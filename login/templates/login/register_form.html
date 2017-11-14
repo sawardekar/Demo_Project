@@ -1,18 +1,68 @@
-<h1>New User:</h1>
-<form method="post">
-{% if messages %}
+<!-- Load path to your static files -->
+{% load staticfiles %}
+<link rel="stylesheet" href ="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+<link href="https://fronts.googleapis.com/css?family=Satisfy" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdin.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+
+<nav class ="navbar navbar-inverse">
+	<div class ="container-fluid">
+		<div class ="navbar-header">
+			<button type="button" class ="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+				<span class ="icon-bar"></span>
+				<span class ="icon-bar"></span>
+				<span class ="icon-bar"></span>
+			</button>
+		</div>
+		<a class ="navbar-brand" href="#">Bajao</a>
+		<div class="collapse navbar-collapse" id="#topNavBar">
+			<ul class="nav navbar-nav">
+				<li class="active">
+					<a href="#">
+						<span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>&nbsp; Music
+					</a>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<form class="navbar-form navbar-left" role="search" method="get" action="/">
+					<div class="form-group">
+						<input type="text" class="form-control" name="music" value="">
+					</div>
+					<button type="submit" class="btn btn-default">Search</button>
+				</form>
+			
+				<li class="">
+					<a href="{% url 'user_login' %}">
+						<span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
+					</a>
+				</li>
+			</ul>
+		<div>		
+
+			<!-- <a class ="navbar-brand" href="{% url 'music_list' %}">Music</a>
+			<a class ="navbar-brand" href="{% url 'album_list' %}">Album</a>
+			<a class ="navbar-brand" href="{% url 'song_list' %}">Song</a> -->		
+		
+	</div>
+</nav>
+<h3>New User:</h3>
+{% if error_message %}
+	<p><strong>{{error_message}}</strong></p>
+{% endif %}
+<form method="post" class="form-horizontal container" role="form">
+<!-- {% if messages %}
 	{% for message in messages %}
 	<b><div class ="alert {% if message.tags %}alert-{% if message.tags == 'error' %}danger{% else %}{{message.tags}}{% endif %}"{% endif %}>{{message}}</div></b>
 	{% endfor %}
-{% endif %}	
+{% endif %} -->	
 
 	{% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" class="btn btn-primary"/>
     or
-    <b><a href="{% url 'user_login' %}">Cancel</a></b>
-
-
+    <b><a href="{% url 'user_login' %}" class="btn btn-primary">Cancel</a></b>
 </form>
-
 

@@ -1,16 +1,78 @@
-<html>
-<h1>Welcome, This is music app in Homepage</h1>
-<b><a href="{% url 'user_login' %}" style="float: right;">Logout</a></b>
+<!-- Load path to your static files -->
+{% load staticfiles %}
+<link rel="stylesheet" href ="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+<link href="https://fronts.googleapis.com/css?family=Satisfy" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdin.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+
+<nav class ="navbar navbar-inverse">
+	<div class ="container-fluid">
+		<div class ="navbar-header">
+			<button type="button" class ="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+				<span class ="icon-bar"></span>
+				<span class ="icon-bar"></span>
+				<span class ="icon-bar"></span>
+			</button>
+		</div>
+		<a class ="navbar-brand" href="#">Bajao</a>
+		<div class="collapse navbar-collapse" id="#topNavBar">
+			<ul class="nav navbar-nav">
+				<li class="active">
+					<a href="{% url 'music_list' %}">
+						<span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>&nbsp; Music
+					</a>
+				</li>
+				<li class="">
+					<a href="{% url 'album_list' %}">
+						<span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Album
+					</a>
+				</li>
+				<li class="">
+					<a href="{% url 'song_list' %}">
+						<span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Song
+					</a>
+				</li>
+			</ul>
+			<form class="navbar-form navbar-left" role="search" method="get" action="/">
+				<div class="form-group">
+					<input type="text" class="form-control" name="music" value="">
+				</div>
+				<button type="submit" class="btn btn-default">Search</button>
+			</form>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="">
+					<a href="{% url 'album_new' %}">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Album
+					</a>
+				</li>
+				<li class="">
+					<a href="{% url 'song_new' %}">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Song
+					</a>
+				</li>
+				<li class="">
+					<a href="{% url 'user_login' %}">
+						<span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
+					</a>
+				</li>
+			</ul>
+		<div>		
+	</div>
+</nav>
+<br>
+<br>
 <ul> 
     <a href="{% url 'album_list'%}">
     <button type="button" class="btn btn-default btn-lg">
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Album </button>
+    <span class="glyphicon glyphicon-cd" aria-hidden="true"></span> &nbsp; Album </button>
     </a>
 </ul>
 <ul>
     <a href="{% url 'song_list'%}">
     <button type="button" class="btn btn-default btn-lg">
-  	<span class="glyphicon glyphicon-star" aria-hidden="true"></span> Song </button>
+  	<span class="glyphicon glyphicon-music" aria-hidden="true"></span> &nbsp; Song </button>
 	</a>
 </ul>
-</html>
