@@ -56,7 +56,7 @@ class RegisterForm(ModelForm):
 		widgets = {
 		'password': forms.PasswordInput(),
 		'confirm_password': forms.PasswordInput(),
-		'email' : TextInput(attrs={'placeholder': 'Enter the Email ID *', 'class': 'form-control','required': False}),
+		'email' : TextInput(attrs={'placeholder': 'Enter the Email ID *','required': False}),
 		}
 		fields = ['user_id', 'password','confirm_password','email','is_active']
 

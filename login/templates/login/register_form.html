@@ -48,11 +48,12 @@
 		
 	</div>
 </nav>
+<center>
 <h3>New User:</h3>
 {% if error_message %}
 	<p><strong>{{error_message}}</strong></p>
 {% endif %}
-<form method="post" class="form-horizontal container" role="form">
+<form method="post">
 <!-- {% if messages %}
 	{% for message in messages %}
 	<b><div class ="alert {% if message.tags %}alert-{% if message.tags == 'error' %}danger{% else %}{{message.tags}}{% endif %}"{% endif %}>{{message}}</div></b>
@@ -65,4 +66,4 @@
     or
     <b><a href="{% url 'user_login' %}" class="btn btn-primary">Cancel</a></b>
 </form>
-
+</center>
