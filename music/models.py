@@ -19,11 +19,12 @@ class Album(models.Model):
     artist = models.CharField(max_length=200)
     album_title = models.CharField(max_length=250)
     genre = models.CharField(max_length=150)
-    album_log = models.CharField(max_length=1000)
+    album_log = models.FileField()
     repeat_song = models.IntegerField()
     date = models.DateField(default=date.today)
     city = models.CharField(max_length=30, default=default_city)
     comment = models.TextField()
+
 
     def __unicode__(self):
         return self.artist 

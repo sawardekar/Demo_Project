@@ -45,7 +45,8 @@ def album_list(request, template_name='music/album_list.html'):
 
 
 def album_create(request, template_name='music/album_form.html'):
-    form = AlbumForm(request.POST or None)
+    form = AlbumForm(request.POST or None )
+    print">>>>>>>>form>>>>>>>>>>>>",form
     if form.is_valid():
         form.save()
         return redirect('album_list')
